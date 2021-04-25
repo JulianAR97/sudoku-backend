@@ -9,14 +9,15 @@
 # returns a random time like '54:37'
 def rand_time
   # Map an array of random numbers between 0 and 59 to strings with exactly two digits
-  times = Array.new(2, rand(0...60)).map { |t| t < 10 ? "0#{t}" : t.to_s }
+  times = [rand(0...60), rand(0...60)].map { |t| t < 10 ? "0#{t}" : t.to_s }
   times.join(':')
 end
 
-5.times do
-  User.create(cookie: SecureRandom.hex)
-end
+# 5.times do
+#   User.create(cookie: SecureRandom.hex)
+# end
 
 25.times do
-  Score.create(time: rand_time, user_id: rand(1..5))
+  Score.create(time: rand_time, user_id: 6)
 end
+
