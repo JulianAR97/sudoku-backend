@@ -4,12 +4,13 @@ class ScoresController < ApplicationController
   def index
     user = User.find_by(cookie: params[:user_id])
     @scores = user ? user.scores.top_ten : []
-    render json: @scores
+    render json: @scores, only: :time
   end
 
   # POST /scores
   def create
-    @score = Score.new(score_params)
+    user = User.find_or_create_by(cookie: params[:user_id])
+    @score = Score.new(time: score_params[:time], user_id: user.id)
 
     if @score.save
       render json: @score, status: :created, location: @score
@@ -22,6 +23,6 @@ class ScoresController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def score_params
-      params.require(:score).permit(:user_id)
+      params.require(:score).permit(:user_id, :time)
     end
 end
