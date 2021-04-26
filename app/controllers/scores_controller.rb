@@ -1,12 +1,5 @@
 class ScoresController < ApplicationController
 
-  # GET /scores
-  def index
-    user = User.find_by(cookie: params[:user_id])
-    @scores = user ? user.scores.top_ten : []
-    render json: @scores, only: %i[time difficulty]
-  end
-
   # POST /scores
   def create
     user = User.find_or_create_by(cookie: params[:user_id])
