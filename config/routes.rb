@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :users, except: %i[index show create update destroy] do
+  resources :users, except: %i[index show update destroy] do
     resources :stats, only: %i[index]
     resources :scores, only: %i[index create]
   end
