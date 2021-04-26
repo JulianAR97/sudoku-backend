@@ -4,7 +4,7 @@ class StatsController < ApplicationController
   include StatsHelper
   
   def index
-    user = User.find_by(cookie: stats_params[:user_id])
+    user = User.find(stats_params[:user_id])
     @stats = {}
     if user
       @stats = get_stats(user)
