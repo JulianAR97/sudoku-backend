@@ -2,9 +2,9 @@ class ScoresController < ApplicationController
 
   # POST /scores
   def create
-    user = User.find_or_create_by(cookie: params[:user_id])
-    @score = Score.new(time: score_params[:time], user_id: user.id)
-
+    user = User.find(params[:user_id])
+    @score = user.scores.build(time: score_params[:time], difficulty: score_params[:difficulty])
+    
     if @score.save
       render json: @score, status: :created, location: @score
     else
